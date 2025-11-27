@@ -1,0 +1,8 @@
+Image.o
+libMC6803E.a
+libMC6803E.dll
+MC6803_TEST.o
+MC6803E_ALU.o
+MC6803E_Core.o
+MC6803E_Memory.o
+MC6803_TEST.exe

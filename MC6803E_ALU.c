@@ -5,9 +5,9 @@
 	Debug Instructions
 */
 
-char * ALU_MC6803E_GetCurrentMneunomic(MC6803E_MPU * p)
+MC6803E_API char * ALU_MC6803E_GetCurrentMneunomic(MC6803E_MPU * p)
 	{ return p->lastCommandMneunomic; }
-void ALU_MC6803E_PrintCurrentMneunomic(MC6803E_MPU * p)
+MC6803E_API void ALU_MC6803E_PrintCurrentMneunomic(MC6803E_MPU * p)
 	{ printf("%s\n", ALU_MC6803E_GetCurrentMneunomic(p)); }
 void ALU_MC6803E_FreeCurrentMneunomic(MC6803E_MPU * p)
 	{ if(p->lastCommandMneunomic != NULL) { free(p->lastCommandMneunomic); } }
@@ -54,10 +54,10 @@ uint8_t ALU_MC6803E_SetFlagIfNonZero(MC6803E_MPU * p, uint8_t flag, uint8_t val)
 /*
 	Implement the Fetch/Execute cycle.
 */
-uint8_t ALU_MC6803E_Fetch(MC6803E_MPU * p)
+MC6803E_API uint8_t ALU_MC6803E_Fetch(MC6803E_MPU * p)
 	{ return (uint8_t)MemoryRead(p, p->pc); }
 
-uint16_t ALU_MC6803E_Execute(MC6803E_MPU * p, uint8_t instruction)
+MC6803E_API uint16_t ALU_MC6803E_Execute(MC6803E_MPU * p, uint8_t instruction)
 {
 	switch (instruction) {
 		case 0x8C: // CPX Immediate

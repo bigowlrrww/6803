@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "mc6803e_core.h": "c",
+        "mc6803_test.h": "c",
+        "libmc6803e.h": "c"
+    }
+}

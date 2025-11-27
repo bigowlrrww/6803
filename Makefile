@@ -1,24 +1,32 @@
+CC      = gcc
+AR      = ar
+CFLAGS  = -I. -O2
+RM      = rm -f
 
-CC		= gcc
-CFLAGS	= -I. -O2
-LDFLAGS	= -dynamiclib -Wl,-single_module
-RM		= rm -f
+# Library
+TARGET-libMC6803E = libMC6803E.a
+OBJS-libMC6803E   = Image.o MC6803E_ALU.o MC6803E_Memory.o MC6803E_Core.o
 
-TARGET-test	= MC6803_TEST
-OBJS-test	= MC6803_TEST.o
+# Test program
+TARGET-test = MC6803_TEST
+OBJS-test   = MC6803_TEST.o
 
-TARGET-libMC6803E	= libMC6803E.dylib
-OBJS-libMC6803E	= Image.o MC6803E_ALU.o MC6803E_Memory.o MC6803E_Core.o
+all: $(TARGET-libMC6803E) $(TARGET-test)
 
-all:: $(TARGET-libMC6803E) $(TARGET-test)
-
+# Build static library
 $(TARGET-libMC6803E): $(OBJS-libMC6803E)
-	$(CC) $(OBJS-libMC6803E) $(LDFLAGS) -o $@
+	$(AR) rcs $@ $(OBJS-libMC6803E)
 
-$(TARGET-test): $(OBJS-test)
-	$(CC) $(CFLAGS) -L. -lMC6803E $< -o $@
+# Build test program
+$(TARGET-test): $(OBJS-test) $(TARGET-libMC6803E)
+	$(CC) $(CFLAGS) $(OBJS-test) $(TARGET-libMC6803E) -o $@
 
-clean::
-	find . -name \*.o | xargs $(RM)
-	$(RM) $(TARGET-libMC6803E) $(OBJS-libMC6803E)
-	$(RM) $(OBJS-test) $(TARGET-test)
+# Compile object files
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Clean
+clean:
+	if exist *.o del /Q *.o
+	if exist *.a del /Q *.a
+	if exist $(TARGET-test).exe del /Q $(TARGET-test).exe

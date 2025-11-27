@@ -5,16 +5,21 @@
 #include "MC6803E_Core.h"
 #include "MC6803E_Memory.h"
 
+#ifdef _WIN32
+  #define MC6803E_API __declspec(dllexport)
+#else
+  #define MC6803E_API
+#endif
 /*
 	Debug instructions.
 */
-char * ALU_MC6803E_GetCurrentMneunomic(MC6803E_MPU * p);
-void ALU_MC6803E_PrintCurrentMneunomic(MC6803E_MPU *);
+MC6803E_API char * ALU_MC6803E_GetCurrentMneunomic(MC6803E_MPU * p);
+MC6803E_API void ALU_MC6803E_PrintCurrentMneunomic(MC6803E_MPU *);
 char * ALU_MC6803E_SetCurrentMneunomic(MC6803E_MPU *, char *);
 char * ALU_MC6803E_SetCurrentMneunomicWithPayload(MC6803E_MPU *, char *, unsigned int);
 
-uint8_t		ALU_MC6803E_Fetch(MC6803E_MPU *);
-uint16_t	ALU_MC6803E_Execute(MC6803E_MPU *, uint8_t instruction);
+MC6803E_API uint8_t		ALU_MC6803E_Fetch(MC6803E_MPU *);
+MC6803E_API uint16_t	ALU_MC6803E_Execute(MC6803E_MPU *, uint8_t instruction);
 uint16_t	ALU_MC6803E_IncrementPC(MC6803E_MPU *, uint16_t);
 
 uint8_t 	ALU_MC6803E_GetFlag(MC6803E_MPU *, uint8_t);

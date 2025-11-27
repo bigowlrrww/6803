@@ -22,8 +22,10 @@ void MC6803E_MPU_Free(MC6803E_MPU *);
 void MC6803E_MPU_PrintRegisters(MC6803E_MPU *);
 
 // ALU Functions
-uint8_t ALU_Fetch(MC6803E_MPU *);
-uint16_t ALU_Execute(MC6803E_MPU *, uint8_t instruction);
+uint8_t		ALU_MC6803E_Fetch(MC6803E_MPU *);
+uint16_t	ALU_MC6803E_Execute(MC6803E_MPU *, uint8_t instruction);
+char * ALU_MC6803E_GetCurrentMneunomic(MC6803E_MPU * p);
+void ALU_MC6803E_PrintCurrentMneunomic(MC6803E_MPU *);
 
 // Memory Functions
 uint8_t MemoryRead(MC6803E_MPU *, uint16_t);

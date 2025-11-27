@@ -1,7 +1,9 @@
 
 #include "MC6803E_Core.h"
+#include "MC6803E_Memory.h"
+#include "MC6803E_ALU.h"
 
-MC6803E_MPU * MC6803E_MPU_Alloc(void)
+MC6803E_API MC6803E_MPU * MC6803E_MPU_Alloc(void)
 {
 	MC6803E_MPU * p = malloc(sizeof(MC6803E_MPU));
 	
@@ -28,12 +30,12 @@ MC6803E_MPU * MC6803E_MPU_Alloc(void)
 	return p;
 }
 
-void MC6803E_MPU_Free(MC6803E_MPU * p)
+MC6803E_API void MC6803E_MPU_Free(MC6803E_MPU * p)
 {
 	free(p);
 }
 
-void MC6803E_MPU_PrintRegisters(MC6803E_MPU * p)
+MC6803E_API void MC6803E_MPU_PrintRegisters(MC6803E_MPU * p)
 {
 	char * str;
 	printf("Reg\tHex\tBinary\n");
