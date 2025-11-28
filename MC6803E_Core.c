@@ -27,6 +27,8 @@ MC6803E_API MC6803E_MPU * MC6803E_MPU_Alloc(void)
 	// The program counter should point to the bootloader address.
 	p->pc = (uint16_t)0x0000;
 	
+	// Make sure the last Command Mneunomic null to prevent issues on startup
+	p->lastCommandMneunomic = NULL;
 	return p;
 }
 
@@ -69,8 +71,12 @@ MC6803E_API void MC6803E_MPU_PrintRegisters(MC6803E_MPU * p)
 */
 char * _uint_ToString(unsigned int i, unsigned int len)
 {
-	char * r = calloc(sizeof(char), len); unsigned int mask = (0x1 << (len-1));
-	do { sprintf(r, "%s%d", r, (mask&i)!=0); } while ((mask = (mask>>1))); return r;
+	char * r = calloc(len+1, sizeof(char));
+	for (int b = len; b >= 0; --b) {
+        r[len-b] = ((i >> b) & 1) ? '1' : '0';
+    }
+    r[len] = '\0';
+    return r;
 }
 
 char * _uint16_ToString(uint16_t i)	{ return _uint_ToString(i, 16);	}
