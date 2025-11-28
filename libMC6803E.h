@@ -1,7 +1,10 @@
 
 #ifndef __LIB6803_H_INCLUDE
 #define __LIB6803_H_INCLUDE
-
+//Don't mangle me
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <stdint.h>
 
 // MC6803E_MPU_ stuff..
@@ -30,5 +33,9 @@ void ALU_MC6803E_PrintCurrentMneunomic(MC6803E_MPU *);
 // Memory Functions
 uint8_t MemoryRead(MC6803E_MPU *, uint16_t);
 uint8_t MemoryWrite(MC6803E_MPU * p, uint16_t address, uint8_t value);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
