@@ -97,7 +97,7 @@ int main(int argc, char * argv[])
 	
 	// Start execution at 0x4000.
 	//p->pc = 0xE000;
-	p->pc = 0x4000;
+	p->pc = 0xE100;
 	
 	// The run loop.
 	uint8_t instruction;
@@ -116,8 +116,8 @@ int main(int argc, char * argv[])
 		
 		if(PrintRegisters == 1) {
 			MC6803E_MPU_PrintRegisters(p); 	// Print the state of the registers.
-			printf("\n");
 		}
+		printf("\n");
 		
 		if(StepThroughEmulation == 1) {
 			if(Verbose == 1) {
