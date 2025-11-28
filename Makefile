@@ -1,6 +1,6 @@
 CC      = gcc
 AR      = ar
-CFLAGS  = -I. -O2
+CFLAGS  = -I. -O0 -g
 RM      = rm -f
 
 # Library

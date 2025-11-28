@@ -1,0 +1,25 @@
+    {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Debug with GDB",
+                "type": "cppdbg",
+                "request": "launch",
+                "program": "${workspaceFolder}/MC6803_TEST.exe", // Replace with your executable's path
+                "args": [],
+                "stopAtEntry": true,
+                "cwd": "${workspaceFolder}",
+                "environment": [],
+                "externalConsole": true, // Set to true if you want a separate console window
+                "MIMode": "gdb",
+                "miDebuggerPath": "gdb.exe", // Or the full path to gdb.exe if not in PATH
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty printing for gdb",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    }
+                ]
+            }
+        ]
+    }
