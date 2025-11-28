@@ -16,7 +16,11 @@ char * ALU_MC6803E_SetCurrentMneunomic(MC6803E_MPU * p, char * instruction)
 {
 	ALU_MC6803E_FreeCurrentMneunomic(p);
 	p->lastCommandMneunomic = calloc(128, sizeof(char));
-	sprintf(p->lastCommandMneunomic, "%04X:\t%s", p->pc, instruction);
+	sprintf(p->lastCommandMneunomic, "%04X:(%02x %02x %02x)\t%s", p->pc, 
+		(uint32_t)p->MemoryMap[p->pc],
+		(uint32_t)p->MemoryMap[p->pc+1],
+		(uint32_t)p->MemoryMap[p->pc+2],
+		 instruction);
 	return p->lastCommandMneunomic;
 }
 char * ALU_MC6803E_SetCurrentMneunomicWithPayload(MC6803E_MPU * p, char * instruction, unsigned int payload)
@@ -25,7 +29,10 @@ char * ALU_MC6803E_SetCurrentMneunomicWithPayload(MC6803E_MPU * p, char * instru
 	p->lastCommandMneunomic = calloc(128, sizeof(char));
 	
 	char * format_string = calloc(sizeof(char), strlen(instruction) + 0xff);
-	sprintf(format_string, "%04X:\t", p->pc);
+	sprintf(format_string, "%04X:(%02x %02x %02x)\t", p->pc,
+		(uint32_t)p->MemoryMap[p->pc],
+		(uint32_t)p->MemoryMap[p->pc+1],
+		(uint32_t)p->MemoryMap[p->pc+2]);
 	strcat(format_string, instruction);
 	
 	sprintf(p->lastCommandMneunomic, format_string, payload);
@@ -678,9 +685,9 @@ void ALU_MC6803E_LDX(MC6803E_MPU * p)
 
 	switch (instruction) {
 		case 0xCE: // LDX Immediate
-			ALU_MC6803E_SetCurrentMneunomicWithPayload(p, "LDX #$%02X", unsigned_payload);
-			p->indexRegister = ((uint16_t)unsigned_payload);
-			ALU_MC6803E_IncrementPC(p, 1);
+			ALU_MC6803E_SetCurrentMneunomicWithPayload(p, "LDX #$%04X", unsigned_payload_double);
+			p->indexRegister = unsigned_payload_double;
+			ALU_MC6803E_IncrementPC(p, 2);
 			break;
 		case 0xDE: // LDX Direct
 			ALU_MC6803E_SetCurrentMneunomicWithPayload(p, "LDX %02X", unsigned_payload);
@@ -720,9 +727,9 @@ void ALU_MC6803E_LDS(MC6803E_MPU * p)
 
 	switch (instruction) {
 		case 0x8E: // LDS Immediate
-			ALU_MC6803E_SetCurrentMneunomicWithPayload(p, "LDS #$%02X", unsigned_payload);
-			p->stackPointer = ((uint16_t)unsigned_payload);
-			ALU_MC6803E_IncrementPC(p, 1);
+			ALU_MC6803E_SetCurrentMneunomicWithPayload(p, "LDS #$%04X", unsigned_payload_double);
+			p->stackPointer = (unsigned_payload_double);
+			ALU_MC6803E_IncrementPC(p, 2);
 			break;
 		case 0x9E: // LDS Direct
 			ALU_MC6803E_SetCurrentMneunomicWithPayload(p, "LDS %02X", unsigned_payload);
