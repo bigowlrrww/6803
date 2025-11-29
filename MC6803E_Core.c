@@ -46,7 +46,7 @@ MC6803E_API void MC6803E_MPU_PrintRegisters(MC6803E_MPU * p)
 	printf("PC:\t%04X\t%s\n",	p->pc, str);
 	free(str);
 	str = _uint8_ToString(p->flagRegister);
-	printf("P:\t  %02X\t%s\n",	p->flagRegister, str);
+	printf("CCR:\t  %02X\t%s\n",	p->flagRegister, str);
 	free(str);
 	str = _uint8_ToString(p->accumulatorA);
 	printf("A:\t  %02X\t%s\n", 	p->accumulatorA, str);
@@ -61,7 +61,7 @@ MC6803E_API void MC6803E_MPU_PrintRegisters(MC6803E_MPU * p)
 	printf("X:\t%04X\t%s\n", 	p->indexRegister, str);
 	free(str);
 	str = _uint16_ToString(p->stackPointer);
-	printf("S:\t%04X\t%s\n", 	p->stackPointer, str);
+	printf("SP:\t%04X\t%s\n", 	p->stackPointer, str);
 	free(str);
 	
 }
@@ -72,8 +72,8 @@ MC6803E_API void MC6803E_MPU_PrintRegisters(MC6803E_MPU * p)
 char * _uint_ToString(unsigned int i, unsigned int len)
 {
 	char * r = calloc(len+1, sizeof(char));
-	for (int b = len; b >= 0; --b) {
-        r[len-b] = ((i >> b) & 1) ? '1' : '0';
+	for (int b = len; b > 0; --b) {
+        r[len-b] = ((i >> b-1) & 1) ? '1' : '0';
     }
     r[len] = '\0';
     return r;
