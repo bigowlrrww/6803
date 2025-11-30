@@ -31,6 +31,7 @@ typedef struct _MC6803E_MPU {
 	uint16_t indexRegister;
 	uint16_t stackPointer;
 	uint8_t MemoryMap[0x10000];
+	uint8_t lastCommandMneunomicLen;
 	// This is used to a pointer to the mneunomic for the last command.
 	char * lastCommandMneunomic;
 } MC6803E_MPU;

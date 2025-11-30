@@ -29,6 +29,7 @@ MC6803E_API MC6803E_MPU * MC6803E_MPU_Alloc(void)
 	
 	// Make sure the last Command Mneunomic null to prevent issues on startup
 	p->lastCommandMneunomic = NULL;
+	p->lastCommandMneunomicLen = 0;
 	return p;
 }
 

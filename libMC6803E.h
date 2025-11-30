@@ -17,6 +17,7 @@ typedef struct _MC6803E_MPU {
 	uint16_t indexRegister;
 	uint16_t stackPointer;
 	uint8_t MemoryMap[0x10000];
+	uint8_t lastCommandMneunomicLen;
 } MC6803E_MPU;
 
 // MC6803E_MPU_ Functions
