@@ -3010,16 +3010,19 @@ void ALU_MC6803E_STD(MC6803E_MPU * p)
 	uint16_t direct_address = (uint16_t)unsigned_payload;
 
 	switch (instruction) {
-		case 0xDD: // STD Direct
+		case 0xDD: // STD Direct 00xx
 			ALU_MC6803E_SetCurrentMneunomicWithPayload(p, "STD %02X", unsigned_payload);
+			MemoryWrite16(p, unsigned_payload, *p->accumulatorD);
 			ALU_MC6803E_IncrementPC(p, 1);
 			break;
-		case 0xED: // STD Index
+		case 0xED: // STD Index IX+u8
 			ALU_MC6803E_SetCurrentMneunomicWithPayload(p, "STD %02X(x)", unsigned_payload);
+			MemoryWriteIndexValue16(p, unsigned_payload, *p->accumulatorD);
 			ALU_MC6803E_IncrementPC(p, 1);
 			break;
 		case 0xFD: // STD Extended
 			ALU_MC6803E_SetCurrentMneunomicWithPayload(p, "STD %04X", unsigned_payload_double);
+			MemoryWrite16(p, unsigned_payload_double, *p->accumulatorD);
 			ALU_MC6803E_IncrementPC(p, 2);
 			break;
 		default:
