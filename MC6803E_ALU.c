@@ -614,6 +614,7 @@ void ALU_MC6803E_CPX(MC6803E_MPU * p)
 	ALU_MC6803E_SetFlagIfZero(p, MC6803E_FLAG_Z, (result & 0xff));
 	ALU_MC6803E_SetFlagIfNonZero(p, MC6803E_FLAG_V, (result > 0xff));
 	ALU_MC6803E_SetFlagIfNonZero(p, MC6803E_FLAG_C, ((result & (uint16_t)0x100))>>8);
+	ALU_MC6803E_SetFlag(p, MC6803E_FLAG_IMP); //Flag this as a implemented Mnuenomic
 }
 
 /*
