@@ -9,7 +9,7 @@ MC6803E_API MC6803E_MPU * MC6803E_MPU_Alloc(void)
 	
 	if(p == NULL) { return p; }
 	
-	p->flagRegister = (uint8_t)0x00;
+	p->flagRegister = (uint8_t)0xC0; //Upper 2 bits are always set under normal processor arch
 	p->accumulatorA = (uint8_t)0x00;
 	p->accumulatorB = (uint8_t)0x00;
 	
